@@ -114,6 +114,10 @@ library. I would recommend the [googleclientlogin](https://github.com/Ajnasz/Goo
 
 	googleAuth.login();
 
+## Known Issues
+
+Using NodeJS 0.8.4 - 0.8.22 has a known issue with SSL, YMMV. (https://github.com/joyent/node/issues/4771)
+
 ## Further possibilities for this library
 	- Edit functionality
 	- Sorting/filtering on row listing
