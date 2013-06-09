@@ -115,10 +115,10 @@ library. I would recommend the [googleclientlogin](https://github.com/Ajnasz/Goo
 	googleAuth.login();
 
 ## Further possibilities for this library
-	- Edit functionality
-	- Sorting/filtering on row listing
-	- Filtering on cell listing.
+ * Edit functionality
+ * Sorting/filtering on row listing
+ * Filtering on cell listing.
 
 ## Links
-	- <http://code.google.com/apis/spreadsheets/>
-	- <https://github.com/Ajnasz/GoogleClientLogin>
+ * <http://code.google.com/apis/spreadsheets/>
+ * <https://github.com/Ajnasz/GoogleClientLogin>
