@@ -23,7 +23,7 @@ A simple Node.js library to read data from a Google Spreadsheet.
 	
 ## API
 
-*GoogleSpreadsheets = module.exports = function(opts, callback);*
+### GoogleSpreadsheets(opts, callback)
 
 Loads a `Spreadsheet` from the API. `opts` may contain the following:
 
@@ -31,7 +31,7 @@ Loads a `Spreadsheet` from the API. `opts` may contain the following:
  * `auth`: *(optional)* authentication key from Google ClientLogin
 
 
-*GoogleSpreadsheets.rows = function(opts, callback);*
+### GoogleSpreadsheets.rows(opts, callback)
 
 Loads a set of rows for a specific Spreadsheet from the API. Note that this call is direct, you must supply all auth, spreadsheet and worksheet information.
 
@@ -43,7 +43,7 @@ Loads a set of rows for a specific Spreadsheet from the API. Note that this call
  * `auth`: *(optional)* authentication key from Google ClientLogin
 
 
-*GoogleSpreadsheets.cells = function(opts, callback);*
+### GoogleSpreadsheets(opts, callback)
 
 Loads a group of cells for a specific Spreadsheet from the API. Note that this call is direct, you must supply all auth, spreadsheet and worksheet information.
 
@@ -53,7 +53,7 @@ Loads a group of cells for a specific Spreadsheet from the API. Note that this c
  * `range`: *(optional)* A range (in the format of R1C1) of cells to retrieve. e.g R15C2:R37C8. Range is inclusive.
  * `auth`: *(optional)* authentication key from Google ClientLogin
 
-*Spreadsheet*
+### `Spreadsheet` object
 
 Object returned from `GoogleSpreadsheets()` call. This object has the following properties:
  * `title`: title of Spreadsheet
@@ -61,11 +61,11 @@ Object returned from `GoogleSpreadsheets()` call. This object has the following 
  * `author`: object containing `name` and `email` of author of Spreadsheet.
  * `worksheets`: Array of Worksheets contained in this spreadsheet.
 
-*Worksheet*
+### `Worksheet` object
 
 Represents a single worksheet contained in a Spreadsheet. Obtain this via `Spreadsheet.worksheets`.
 
-Worksheet has the following properties:
+A Worksheet has the following properties:
  * `rowCount`: number of rows in worksheet.
  * `colCount`: number of columns in worksheet.
  * `Worksheet.rows(opts, cb)`: convenience method to call `Spreadsheets.rows`, just pass in `start` and `num` - will automatically pass spreadsheet key, worksheet id, and auth info (if applicable) 
