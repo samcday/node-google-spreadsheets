@@ -16,7 +16,7 @@
     "request": ">= 2.0.2"
   },
   "devDependencies": {
-    "mocha": "~1.8.1",
+    "mocha": "~1.9",
     "should": "~1.2.1"
   },
   "scripts": {

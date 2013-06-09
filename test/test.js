@@ -29,4 +29,12 @@ describe("google-spreadsheets", function() {
 			});
 		});
 	});
+	it("fails gracefully on nonexistent spreadsheets", function(done) {
+		GoogleSpreadsheets({
+			key: "BACON"
+		}, function(err) {
+			err.message.should.equal("HTTP error 400: Bad Request");
+			done();
+		});
+	});
 });
