@@ -114,6 +114,10 @@ library. I would recommend the [googleclientlogin](https://github.com/Ajnasz/Goo
 
 	googleAuth.login();
 
+## Known Issues
+
+Using NodeJS 0.8.4 - 0.8.22 has a known issue with SSL, YMMV. (https://github.com/joyent/node/issues/4771)
+
 ## Further possibilities for this library
  * Edit functionality
  * Sorting/filtering on row listing
@@ -122,3 +126,7 @@ library. I would recommend the [googleclientlogin](https://github.com/Ajnasz/Goo
 ## Links
  * <http://code.google.com/apis/spreadsheets/>
  * <https://github.com/Ajnasz/GoogleClientLogin>
+
+## License
+
+node-google-spreadsheets is free and unencumbered public domain software. For more information, see the accompanying UNLICENSE file.
