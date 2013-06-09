@@ -27,8 +27,8 @@ A simple Node.js library to read data from a Google Spreadsheet.
 
 Loads a `Spreadsheet` from the API. `opts` may contain the following:
 
-	- `key`: *(required)* spreadsheet key
-	- `auth`: *(optional)* authentication key from Google ClientLogin
+ * `key`: *(required)* spreadsheet key
+ * `auth`: *(optional)* authentication key from Google ClientLogin
 
 
 *GoogleSpreadsheets.rows = function(opts, callback);*
@@ -36,11 +36,11 @@ Loads a `Spreadsheet` from the API. `opts` may contain the following:
 Loads a set of rows for a specific Spreadsheet from the API. Note that this call is direct, you must supply all auth, spreadsheet and worksheet information.
 
 `opts`:
-	- `key`: *(required)* spreadsheet key
-	- `worksheet`: *(required)* worksheet id. Can be a numeric index (starting from 1), or the proper string identifier for a worksheet.
-	- `start`: *(optional)* starting index for returned results
-	- `num`: *(optional)* number of results to return 
-	- `auth`: *(optional)* authentication key from Google ClientLogin
+ * `key`: *(required)* spreadsheet key
+ * `worksheet`: *(required)* worksheet id. Can be a numeric index (starting from 1), or the proper string identifier for a worksheet.
+ * `start`: *(optional)* starting index for returned results
+ * `num`: *(optional)* number of results to return 
+ * `auth`: *(optional)* authentication key from Google ClientLogin
 
 
 *GoogleSpreadsheets.cells = function(opts, callback);*
@@ -48,28 +48,28 @@ Loads a set of rows for a specific Spreadsheet from the API. Note that this call
 Loads a group of cells for a specific Spreadsheet from the API. Note that this call is direct, you must supply all auth, spreadsheet and worksheet information.
 
 `opts`:
-	- `key`: *(required)* spreadsheet key
-	- `worksheet`: *(required)* worksheet id. Can be a numeric index (starting from 1), or the proper string identifier for a worksheet.
-	- `range`: *(optional)* A range (in the format of R1C1) of cells to retrieve. e.g R15C2:R37C8. Range is inclusive.
-	- `auth`: *(optional)* authentication key from Google ClientLogin
+ * `key`: *(required)* spreadsheet key
+ * `worksheet`: *(required)* worksheet id. Can be a numeric index (starting from 1), or the proper string identifier for a worksheet.
+ * `range`: *(optional)* A range (in the format of R1C1) of cells to retrieve. e.g R15C2:R37C8. Range is inclusive.
+ * `auth`: *(optional)* authentication key from Google ClientLogin
 
 *Spreadsheet*
 
 Object returned from `GoogleSpreadsheets()` call. This object has the following properties:
-	- `title`: title of Spreadsheet
-	- `updated`: date Spreadsheet was last updated.
-	- `author`: object containing `name` and `email` of author of Spreadsheet.
-	- `worksheets`: Array of Worksheets contained in this spreadsheet.
+ * `title`: title of Spreadsheet
+ * `updated`: date Spreadsheet was last updated.
+ * `author`: object containing `name` and `email` of author of Spreadsheet.
+ * `worksheets`: Array of Worksheets contained in this spreadsheet.
 
 *Worksheet*
 
 Represents a single worksheet contained in a Spreadsheet. Obtain this via `Spreadsheet.worksheets`.
 
 Worksheet has the following properties:
-	- `rowCount`: number of rows in worksheet.
-	- `colCount`: number of columns in worksheet.
-	- `Worksheet.rows(opts, cb)`: convenience method to call `Spreadsheets.rows`, just pass in `start` and `num` - will automatically pass spreadsheet key, worksheet id, and auth info (if applicable) 
-	- `Worksheet.cols(opts, cb)`: convenience method to call `Spreadsheets.cols`, will automatically pass spreadsheet key, worksheet id, and auth info (if applicable). opts can contain `range`, etc.
+ * `rowCount`: number of rows in worksheet.
+ * `colCount`: number of columns in worksheet.
+ * `Worksheet.rows(opts, cb)`: convenience method to call `Spreadsheets.rows`, just pass in `start` and `num` - will automatically pass spreadsheet key, worksheet id, and auth info (if applicable) 
+ * `Worksheet.cols(opts, cb)`: convenience method to call `Spreadsheets.cols`, will automatically pass spreadsheet key, worksheet id, and auth info (if applicable). opts can contain `range`, etc.
 	
 ## A note on authentication
 
