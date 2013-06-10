@@ -29,7 +29,7 @@ describe("google-spreadsheets", function() {
 			});
 		});
 	});
-   it("can retrieve spreadsheet row which conforms to query", function(done) {
+	it("can retrieve spreadsheet row which conforms to query", function(done) {
 		GoogleSpreadsheets({
 			key: "0ApDvWFF4RPZBdEFucnJya1hxVG9wZzhJQWZUWkpfekE"
 		}, function(err, spreadsheet) {
@@ -37,13 +37,13 @@ describe("google-spreadsheets", function() {
 			spreadsheet.worksheets[0].rows({
 				sq: "hello>1"
 			}, function(err, result) {
-				result[0]["hello"].should.equal("2");
 				result[0]["world"].should.equal("10");
+				result[0]["hello"].should.equal("2");
 				done();
 			});
 		});
 	});
-   it("can retrieve no rows with query", function(done) {
+	it("can retrieve no rows with query", function(done) {
 		GoogleSpreadsheets({
 			key: "0ApDvWFF4RPZBdEFucnJya1hxVG9wZzhJQWZUWkpfekE"
 		}, function(err, spreadsheet) {
@@ -56,5 +56,12 @@ describe("google-spreadsheets", function() {
 			});
 		});
 	});
-
+	it("fails gracefully on nonexistent spreadsheets", function(done) {
+		GoogleSpreadsheets({
+			key: "BACON"
+		}, function(err) {
+			err.message.should.equal("HTTP error 400: Bad Request");
+			done();
+		});
+	});
 });
