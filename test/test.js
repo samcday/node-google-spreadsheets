@@ -29,4 +29,32 @@ describe("google-spreadsheets", function() {
 			});
 		});
 	});
+   it("can retrieve spreadsheet row which conforms to query", function(done) {
+		GoogleSpreadsheets({
+			key: "0ApDvWFF4RPZBdEFucnJya1hxVG9wZzhJQWZUWkpfekE"
+		}, function(err, spreadsheet) {
+			if(err) return done(err);
+			spreadsheet.worksheets[0].rows({
+				sq: "hello>1"
+			}, function(err, result) {
+				result[0]["hello"].should.equal("2");
+				result[0]["world"].should.equal("10");
+				done();
+			});
+		});
+	});
+   it("can retrieve no rows with query", function(done) {
+		GoogleSpreadsheets({
+			key: "0ApDvWFF4RPZBdEFucnJya1hxVG9wZzhJQWZUWkpfekE"
+		}, function(err, spreadsheet) {
+			if(err) return done(err);
+			spreadsheet.worksheets[0].rows({
+				sq: "hello>2"
+			}, function(err, result) {
+				result.length.should.equal(0);
+				done();
+			});
+		});
+	});
+
 });
