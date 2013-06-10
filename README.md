@@ -41,6 +41,7 @@ Loads a set of rows for a specific Spreadsheet from the API. Note that this call
  * `start`: *(optional)* starting index for returned results
  * `num`: *(optional)* number of results to return 
  * `auth`: *(optional)* authentication key from Google ClientLogin
+ * `sq`: *(optional)* structured query (not URL encoded) - https://developers.google.com/google-apps/spreadsheets/#sending_a_structured_query_for_rows 
 
 
 ### GoogleSpreadsheets(opts, callback)
