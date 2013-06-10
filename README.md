@@ -1,5 +1,5 @@
 [![build status](https://secure.travis-ci.org/samcday/node-google-spreadsheets.png)](http://travis-ci.org/samcday/node-google-spreadsheets)
-# NodeJS Google Spreadsheets Data API `v0.2.0`
+# NodeJS Google Spreadsheets Data API `v0.3.0`
 
 A simple Node.js library to read data from a Google Spreadsheet.
 
