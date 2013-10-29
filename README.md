@@ -92,6 +92,7 @@ library. I would recommend the [googleclientlogin](https://github.com/Ajnasz/Goo
 
 ### Authentication example (using googleclientlogin):
 	var GoogleClientLogin = require("googleclientlogin").GoogleClientLogin;
+	var GoogleSpreadsheets = require("google-spreadsheets");
 
 	var googleAuth = new GoogleClientLogin({
 	  email: '<email>',
