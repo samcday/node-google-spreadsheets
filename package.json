@@ -1,5 +1,9 @@
 {
-  "author": "Sam <me@samcday.com.au> (http://samcday.com.au/)",
+  "author": {
+    "name": "Sam",
+    "email": "me@samcday.com.au",
+    "url": "http://samcday.com.au/"
+  },
   "name": "google-spreadsheets",
   "description": "Google Spreadsheet Data API for Node.js",
   "version": "0.3.0",
@@ -13,7 +17,8 @@
     "node": ">= 0.4.0"
   },
   "dependencies": {
-    "request": ">= 2.0.2"
+    "request": ">= 2.0.2",
+    "data2xml":">= 0.9.0"
   },
   "devDependencies": {
     "mocha": "~1.9",
@@ -21,5 +26,13 @@
   },
   "scripts": {
     "test": "mocha"
-  }
+  },
+  "readme": "[![build status](https://secure.travis-ci.org/samcday/node-google-spreadsheets.png)](http://travis-ci.org/samcday/node-google-spreadsheets)\n# NodeJS Google Spreadsheets Data API `v0.3.0`\n\nA simple Node.js library to read data from a Google Spreadsheet.\n\n## Installation\n\n\tnpm install google-spreadsheets\n\n## Quick Example\n\tvar GoogleSpreadsheets = require(\"google-spreadsheets\");\n\t\n\tGoogleSpreadsheets({\n\t\tkey: \"<spreadsheet key>\"\n\t}, function(err, spreadsheet) {\n\t\tspreadsheet.worksheets[0].cells({\n\t\t\trange: \"R1C1:R5C5\"\n\t\t}, function(err, cells) {\n\t\t\t// Cells will contain a 2 dimensional array with all cell data in the\n\t\t\t// range requested.\n\t\t});\n\t});\n\t\n## API\n\n### GoogleSpreadsheets(opts, callback)\n\nLoads a `Spreadsheet` from the API. `opts` may contain the following:\n\n * `key`: *(required)* spreadsheet key\n * `auth`: *(optional)* authentication key from Google ClientLogin\n\n\n### GoogleSpreadsheets.rows(opts, callback)\n\nLoads a set of rows for a specific Spreadsheet from the API. Note that this call is direct, you must supply all auth, spreadsheet and worksheet information.\n\n`opts`:\n * `key`: *(required)* spreadsheet key\n * `worksheet`: *(required)* worksheet id. Can be a numeric index (starting from 1), or the proper string identifier for a worksheet.\n * `start`: *(optional)* starting index for returned results\n * `num`: *(optional)* number of results to return \n * `auth`: *(optional)* authentication key from Google ClientLogin\n * `sq`: *(optional)* structured query (not URL encoded) - https://developers.google.com/google-apps/spreadsheets/#sending_a_structured_query_for_rows \n\n\n### GoogleSpreadsheets(opts, callback)\n\nLoads a group of cells for a specific Spreadsheet from the API. Note that this call is direct, you must supply all auth, spreadsheet and worksheet information.\n\n`opts`:\n * `key`: *(required)* spreadsheet key\n * `worksheet`: *(required)* worksheet id. Can be a numeric index (starting from 1), or the proper string identifier for a worksheet.\n * `range`: *(optional)* A range (in the format of R1C1) of cells to retrieve. e.g R15C2:R37C8. Range is inclusive.\n * `auth`: *(optional)* authentication key from Google ClientLogin\n\n### `Spreadsheet` object\n\nObject returned from `GoogleSpreadsheets()` call. This object has the following properties:\n * `title`: title of Spreadsheet\n * `updated`: date Spreadsheet was last updated.\n * `author`: object containing `name` and `email` of author of Spreadsheet.\n * `worksheets`: Array of Worksheets contained in this spreadsheet.\n\n### `Worksheet` object\n\nRepresents a single worksheet contained in a Spreadsheet. Obtain this via `Spreadsheet.worksheets`.\n\nA Worksheet has the following properties:\n * `rowCount`: number of rows in worksheet.\n * `colCount`: number of columns in worksheet.\n * `Worksheet.rows(opts, cb)`: convenience method to call `Spreadsheets.rows`, just pass in `start` and `num` - will automatically pass spreadsheet key, worksheet id, and auth info (if applicable) \n * `Worksheet.cols(opts, cb)`: convenience method to call `Spreadsheets.cols`, will automatically pass spreadsheet key, worksheet id, and auth info (if applicable). opts can contain `range`, etc.\n\t\n## A note on authentication\n\nThe Google Spreadsheets Data API reference and developers guide is a little ambiguous\n about how you access a \"published\" public Spreadsheet.\n\nIf you wish to work with a Google Spreadsheet without authenticating, not only \nmust the Spreadsheet in question be visible to the web, but it must also have \nbeen explicitly published using the \"Share\" button in the top right corner of \nthe Google Spreadsheets GUI.\n\nGenerally, you'll find alot of public spreadsheets may not have had this \ntreatment, so your best bet is to just authenticate a Google account and \naccess the API in that manner.\n\nThis library supports authenticated calls, when it is provided an authentication \nkey from Google ClientLogin. The actualy authentication is not handled by this \nlibrary. I would recommend the [googleclientlogin](https://github.com/Ajnasz/GoogleClientLogin)\n\n### Authentication example (using googleclientlogin):\n\tvar GoogleClientLogin = require(\"googleclientlogin\").GoogleClientLogin;\n\n\tvar googleAuth = new GoogleClientLogin({\n\t  email: '<email>',\n\t  password: '<password>',\n\t  service: 'spreadsheets',\n\t  accountType: GoogleClientLogin.accountTypes.google\n\t});\n\t\n\tgoogleAuth.on(GoogleClientLogin.events.login, function(){\n\t\tGoogleSpreadsheets({\n\t\t\tkey: \"<key>\",\n\t\t\tauth: googleAuth.getAuthId()\n\t\t}, function(err, spreadsheet) {\n\t\t\tspreadsheet.worksheets[0].cells({\n\t\t\t\trange: \"R1C1:R5C6\"\n\t\t\t}, function(err, cells) {\n\t\t\t\t// bleh!\n\t\t\t});\n\t\t});\n\t});\n\n\tgoogleAuth.login();\n\n## Known Issues\n\nUsing NodeJS 0.8.4 - 0.8.22 has a known issue with SSL, YMMV. (https://github.com/joyent/node/issues/4771)\n\n## Further possibilities for this library\n * Edit functionality\n * Sorting/filtering on row listing\n * Filtering on cell listing.\n\n## Links\n * <http://code.google.com/apis/spreadsheets/>\n * <https://github.com/Ajnasz/GoogleClientLogin>\n\n## License\n\nnode-google-spreadsheets is free and unencumbered public domain software. For more information, see the accompanying UNLICENSE file.\n",
+  "readmeFilename": "README.md",
+  "_id": "google-spreadsheets@0.3.0",
+  "dist": {
+    "shasum": "e3cd79579e85a28a2092d5267f69e4a669077ffa"
+  },
+  "_from": "google-spreadsheets@",
+  "_resolved": "https://registry.npmjs.org/google-spreadsheets/-/google-spreadsheets-0.3.0.tgz"
 }
