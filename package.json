@@ -3,6 +3,7 @@
   "name": "google-spreadsheets",
   "description": "Google Spreadsheet Data API for Node.js",
   "version": "0.3.0",
+  "license": "Unlicense",
   "homepage": "https://github.com/samcday/node-google-spreadsheets",
   "repository": {
     "type": "git",
