@@ -44,7 +44,7 @@ Loads a set of rows for a specific Spreadsheet from the API. Note that this call
  * `sq`: *(optional)* structured query (not URL encoded) - https://developers.google.com/google-apps/spreadsheets/#sending_a_structured_query_for_rows 
 
 
-### GoogleSpreadsheets(opts, callback)
+### GoogleSpreadsheets.cells(opts, callback)
 
 Loads a group of cells for a specific Spreadsheet from the API. Note that this call is direct, you must supply all auth, spreadsheet and worksheet information.
 
