@@ -17,7 +17,7 @@
     "request": ">= 2.0.2"
   },
   "devDependencies": {
-    "istanbul": "^0.3.2",
+    "istanbul": "~0.3.2",
     "mocha": "~1.9",
     "should": "~1.2.1"
   },
