@@ -17,10 +17,11 @@
     "request": ">= 2.0.2"
   },
   "devDependencies": {
+    "istanbul": "^0.3.2",
     "mocha": "~1.9",
     "should": "~1.2.1"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "[ -n \"$NO_COVERAGE\" ] && mocha || istanbul cover _mocha"
   }
 }
