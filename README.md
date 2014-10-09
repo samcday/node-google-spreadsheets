@@ -1,11 +1,15 @@
-[![build status](https://secure.travis-ci.org/samcday/node-google-spreadsheets.png)](http://travis-ci.org/samcday/node-google-spreadsheets)
-# NodeJS Google Spreadsheets Data API `v0.3.0`
+[![Build Status][badge-travis-img]][badge-travis-url]
+[![Dependency Information][badge-david-img]][badge-david-url]
+[![Code Climate][badge-climate-img]][badge-climate-url]
+[![Test Coverage][badge-coverage-img]][badge-coverage-url]
+
+# Node.js Google Spreadsheets
 
 A simple Node.js library to read data from a Google Spreadsheet.
 
 ## Installation
 
-	npm install google-spreadsheets
+[![NPM Info][badge-npm-img]][badge-npm-url]
 
 ## Quick Example
 	var GoogleSpreadsheets = require("google-spreadsheets");
@@ -132,3 +136,14 @@ Using NodeJS 0.8.4 - 0.8.22 has a known issue with SSL, YMMV. (https://github.co
 ## License
 
 node-google-spreadsheets is free and unencumbered public domain software. For more information, see the accompanying UNLICENSE file.
+
+[badge-travis-img]: https://img.shields.io/travis/samcday/node-google-spreadsheets.svg?style=flat-square
+[badge-travis-url]: https://travis-ci.org/samcday/node-google-spreadsheets
+[badge-david-img]: https://img.shields.io/david/samcday/node-google-spreadsheets.svg?style=flat-square
+[badge-david-url]: https://david-dm.org/samcday/node-google-spreadsheets
+[badge-npm-img]: https://nodei.co/npm/google-spreadsheets.png?downloads=true&downloadRank=true&stars=true
+[badge-npm-url]: https://www.npmjs.org/package/google-spreadsheets
+[badge-climate-img]: https://img.shields.io/codeclimate/github/samcday/node-google-spreadsheets.svg?style=flat-square
+[badge-climate-url]: https://codeclimate.com/github/samcday/node-google-spreadsheets
+[badge-coverage-img]: https://img.shields.io/codeclimate/coverage/github/samcday/node-google-spreadsheets.svg?style=flat-square
+[badge-coverage-url]: https://codeclimate.com/github/samcday/node-google-spreadsheets
