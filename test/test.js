@@ -1,3 +1,5 @@
+"use strict";
+
 var assert = require("assert");
 var GoogleSpreadsheets = require("../lib/spreadsheets");
 require("should");
@@ -37,8 +39,8 @@ describe("google-spreadsheets", function() {
 			spreadsheet.worksheets[0].rows({
 				sq: "hello>1"
 			}, function(err, result) {
-				result[0]["world"].should.equal("10");
-				result[0]["hello"].should.equal("2");
+				result[0].world.should.equal("10");
+				result[0].hello.should.equal("2");
 				done();
 			});
 		});
