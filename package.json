@@ -11,7 +11,7 @@
   },
   "main": "lib/spreadsheets.js",
   "engines": {
-    "node": "> 0.8.22"
+    "node": ">= 0.10.0"
   },
   "dependencies": {
     "request": "~2.0.2",
