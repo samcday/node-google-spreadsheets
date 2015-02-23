@@ -13,6 +13,7 @@ A simple Node.js library to read data from a Google Spreadsheet.
 
 ## Quick Example
 
+```js
 	var GoogleSpreadsheets = require("google-spreadsheets");
 
 	// OPTIONAL: if you want to perform authenticated requests.
@@ -37,6 +38,7 @@ A simple Node.js library to read data from a Google Spreadsheet.
 			// range requested.
 		});
 	});
+```
 
 ## Authentication
 
