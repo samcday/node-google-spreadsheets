@@ -12,10 +12,23 @@ A simple Node.js library to read data from a Google Spreadsheet.
 [![NPM Info][badge-npm-img]][badge-npm-url]
 
 ## Quick Example
+
 	var GoogleSpreadsheets = require("google-spreadsheets");
-	
+
+	// OPTIONAL: if you want to perform authenticated requests.
+	// You must install this dependency yourself if you need it.
+	var google = require("googleapis");
+
+	var oauth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
+	// Assuming you already obtained an OAuth2 token that has access to the correct scopes somehow...
+	oauth2Client.setCredentials({
+		access_token: ACCESS_TOKEN,
+		refresh_token: REFRESH_TOKEN
+	});
+
 	GoogleSpreadsheets({
-		key: "<spreadsheet key>"
+		key: "<spreadsheet key>",
+		auth: oauth2Client
 	}, function(err, spreadsheet) {
 		spreadsheet.worksheets[0].cells({
 			range: "R1C1:R5C5"
@@ -24,7 +37,13 @@ A simple Node.js library to read data from a Google Spreadsheet.
 			// range requested.
 		});
 	});
-	
+
+## Authentication
+
+By default, `google-spreadsheets` will attempt requests for a spreadsheet as an unauthenticated (anonymous) user. There are some caveats to this, which you should read about in the [Anonymous Requests](#Anonymous Requests) section below.
+
+As shown in the example above, you can depend on Google's official [`googleapis`](https://github.com/google/google-api-nodejs-client) module and provide it to `google-spreadsheets`. This will allow you to easily make OAuth2 or JWT authenticated requests. See the `googleapis` project for more detailed information about configuring authentication.
+
 ## API
 
 ### GoogleSpreadsheets(opts, callback)
@@ -75,67 +94,31 @@ A Worksheet has the following properties:
  * `colCount`: number of columns in worksheet.
  * `Worksheet.rows(opts, cb)`: convenience method to call `Spreadsheets.rows`, just pass in `start` and `num` - will automatically pass spreadsheet key, worksheet id, and auth info (if applicable) 
  * `Worksheet.cols(opts, cb)`: convenience method to call `Spreadsheets.cols`, will automatically pass spreadsheet key, worksheet id, and auth info (if applicable). opts can contain `range`, etc.
-	
-## A note on authentication
 
-The Google Spreadsheets Data API reference and developers guide is a little ambiguous
- about how you access a "published" public Spreadsheet.
+## Anonymous Requests
 
-If you wish to work with a Google Spreadsheet without authenticating, not only 
-must the Spreadsheet in question be visible to the web, but it must also have 
-been explicitly published using the "Share" button in the top right corner of 
-the Google Spreadsheets GUI.
+As mentioned earlier, `google-spreadsheets` defaults to issuing anonymous requests to the API. This will only work for reading Google Spreadsheets that have had link sharing enabled for "Anyone on the internet", and have been published to the web.
 
-Generally, you'll find alot of public spreadsheets may not have had this 
-treatment, so your best bet is to just authenticate a Google account and 
-access the API in that manner.
+Furthermore, the Google Spreadsheets Data API reference and developers guide is a little ambiguous about how you access a "published" public Spreadsheet.
 
-This library supports authenticated calls, when it is provided an authentication 
-key from Google ClientLogin. The actualy authentication is not handled by this 
-library. I would recommend the [googleclientlogin](https://github.com/Ajnasz/GoogleClientLogin)
+If you wish to work with a Google Spreadsheet without authenticating, not only must the Spreadsheet in question be visible to the web, but it must also have been explicitly published using the "Share" button in the top right corner of the Google Spreadsheets GUI.
 
-### Authentication example (using googleclientlogin):
-	var GoogleClientLogin = require("googleclientlogin").GoogleClientLogin;
-	var GoogleSpreadsheets = require("google-spreadsheets");
-
-	var googleAuth = new GoogleClientLogin({
-	  email: '<email>',
-	  password: '<password>',
-	  service: 'spreadsheets',
-	  accountType: GoogleClientLogin.accountTypes.google
-	});
-	
-	googleAuth.on(GoogleClientLogin.events.login, function(){
-		GoogleSpreadsheets({
-			key: "<key>",
-			auth: googleAuth.getAuthId()
-		}, function(err, spreadsheet) {
-			spreadsheet.worksheets[0].cells({
-				range: "R1C1:R5C6"
-			}, function(err, cells) {
-				// bleh!
-			});
-		});
-	});
-
-	googleAuth.login();
-
-## Known Issues
-
-Using NodeJS 0.8.4 - 0.8.22 has a known issue with SSL, YMMV. (https://github.com/joyent/node/issues/4771)
+You may discover that a particular public spreadsheet you're trying to anonymously read may not have had this treatment, so your best bet is to issue authenticated requests for the spreadsheet (or contact the owner and ask them to fix their spreadsheet).
 
 ## Further possibilities for this library
+
  * Edit functionality
  * Sorting/filtering on row listing
  * Filtering on cell listing.
 
 ## Links
+
  * <http://code.google.com/apis/spreadsheets/>
- * <https://github.com/Ajnasz/GoogleClientLogin>
+ * <https://github.com/google/google-api-nodejs-client>
 
 ## License
 
-node-google-spreadsheets is free and unencumbered public domain software. For more information, see the accompanying UNLICENSE file.
+node-google-spreadsheets is free and unencumbered public domain software. For more information, see the accompanying [UNLICENSE](UNLICENSE) file.
 
 [badge-travis-img]: https://img.shields.io/travis/samcday/node-google-spreadsheets.svg?style=flat-square
 [badge-travis-url]: https://travis-ci.org/samcday/node-google-spreadsheets

@@ -11,10 +11,11 @@
   },
   "main": "lib/spreadsheets.js",
   "engines": {
-    "node": ">= 0.4.0"
+    "node": "> 0.8.22"
   },
   "dependencies": {
-    "request": ">= 2.0.2"
+    "request": "~2.0.2",
+    "semver": "^4.3.0"
   },
   "devDependencies": {
     "istanbul": "~0.3.2",
