@@ -1,149 +1,227 @@
-# google-spreadsheets
+# NodeJS Google Spreadsheets Data API
 
-[![Build Status][badge-travis-img]][badge-travis-url]
-[![Dependency Information][badge-david-img]][badge-david-url]
-[![Code Climate][badge-climate-img]][badge-climate-url]
-[![Test Coverage][badge-coverage-img]][badge-coverage-url]
+[![NPM version](https://badge.fury.io/js/google-spreadsheet.png)](http://badge.fury.io/js/google-spreadsheet)
 
-A simple Node.js library to read data from a Google Spreadsheet.
+A simple Node.js library to read and manipulate data in a Google Spreadsheet.
+
+Works without authentication for read-only sheets or with auth for adding/editing/deleting data.
+Supports both list-based and cell-based feeds.
 
 ## Installation
 
-[![NPM Info][badge-npm-img]][badge-npm-url]
+```
+npm install google-spreadsheet
+```
 
-## Quick Example
-	var GoogleSpreadsheets = require("google-spreadsheets");
-	
-	GoogleSpreadsheets({
-		key: "<spreadsheet key>"
-	}, function(err, spreadsheet) {
-		spreadsheet.worksheets[0].cells({
-			range: "R1C1:R5C5"
-		}, function(err, cells) {
-			// Cells will contain a 2 dimensional array with all cell data in the
-			// range requested.
+
+## Basic Usage
+
+``` javascript
+var GoogleSpreadsheet = require("google-spreadsheet");
+
+// spreadsheet key is the long id in the sheets URL
+var my_sheet = new GoogleSpreadsheet('<spreadsheet key>');
+
+// Without auth -- read only
+// IMPORTANT: See note below on how to make a sheet public-readable!
+// # is worksheet id - IDs start at 1
+my_sheet.getRows( 1, function(err, row_data){
+	console.log( 'pulled in '+row_data.length + ' rows ')
+})
+
+// Set auth to be able to edit/add/delete
+my_sheet.setAuth('<google email/username>','<google pass>', function(err){
+
+	// getInfo returns info about the sheet and an array or "worksheet" objects
+	my_sheet.getInfo( function( err, sheet_info ){
+		console.log( sheet_info.title + ' is loaded' );
+		// use worksheet object if you want to stop using the # in your calls
+
+		var sheet1 = sheet_info.worksheets[0];
+		sheet1.getRows( function( err, rows ){
+			rows[0].colname = 'new val';
+			rows[0].save();	//async and takes a callback
+			rows[0].del();  //async and takes a callback
 		});
 	});
-	
-## API
 
-### GoogleSpreadsheets(opts, callback)
+	// column names are set by google based on the header row of your sheet
+	my_sheet.addRow( 2, { colname: 'col value'} );
 
-Loads a `Spreadsheet` from the API. `opts` may contain the following:
+	my_sheet.getRows( 2, {
+		start: 100,			 // start index
+		num: 100,			   // number of rows to pull
+		orderby: 'name'  // column to order results by
+	}, function(err, row_data){
+		// do something...
+	});
+})
+```
 
- * `key`: *(required)* spreadsheet key
- * `auth`: *(optional)* authentication key from Google ClientLogin
-
-
-### GoogleSpreadsheets.rows(opts, callback)
-
-Loads a set of rows for a specific Spreadsheet from the API. Note that this call is direct, you must supply all auth, spreadsheet and worksheet information.
-
-`opts`:
- * `key`: *(required)* spreadsheet key
- * `worksheet`: *(required)* worksheet id. Can be a numeric index (starting from 1), or the proper string identifier for a worksheet.
- * `start`: *(optional)* starting index for returned results
- * `num`: *(optional)* number of results to return 
- * `auth`: *(optional)* authentication key from Google ClientLogin
- * `sq`: *(optional)* structured query (not URL encoded) - https://developers.google.com/google-apps/spreadsheets/#sending_a_structured_query_for_rows 
-
-
-### GoogleSpreadsheets.cells(opts, callback)
-
-Loads a group of cells for a specific Spreadsheet from the API. Note that this call is direct, you must supply all auth, spreadsheet and worksheet information.
-
-`opts`:
- * `key`: *(required)* spreadsheet key
- * `worksheet`: *(required)* worksheet id. Can be a numeric index (starting from 1), or the proper string identifier for a worksheet.
- * `range`: *(optional)* A range (in the format of R1C1) of cells to retrieve. e.g R15C2:R37C8. Range is inclusive.
- * `auth`: *(optional)* authentication key from Google ClientLogin
-
-### `Spreadsheet` object
-
-Object returned from `GoogleSpreadsheets()` call. This object has the following properties:
- * `title`: title of Spreadsheet
- * `updated`: date Spreadsheet was last updated.
- * `author`: object containing `name` and `email` of author of Spreadsheet.
- * `worksheets`: Array of Worksheets contained in this spreadsheet.
-
-### `Worksheet` object
-
-Represents a single worksheet contained in a Spreadsheet. Obtain this via `Spreadsheet.worksheets`.
-
-A Worksheet has the following properties:
- * `rowCount`: number of rows in worksheet.
- * `colCount`: number of columns in worksheet.
- * `Worksheet.rows(opts, cb)`: convenience method to call `Spreadsheets.rows`, just pass in `start` and `num` - will automatically pass spreadsheet key, worksheet id, and auth info (if applicable) 
- * `Worksheet.cols(opts, cb)`: convenience method to call `Spreadsheets.cols`, will automatically pass spreadsheet key, worksheet id, and auth info (if applicable). opts can contain `range`, etc.
-	
 ## A note on authentication
 
-The Google Spreadsheets Data API reference and developers guide is a little ambiguous
- about how you access a "published" public Spreadsheet.
+The Google Spreadsheets Data API reference and developers guide is a little ambiguous about how you access a "published" public Spreadsheet.
 
-If you wish to work with a Google Spreadsheet without authenticating, not only 
-must the Spreadsheet in question be visible to the web, but it must also have 
-been explicitly published using the "Share" button in the top right corner of 
-the Google Spreadsheets GUI.
+If you wish to work with a Google Spreadsheet without authenticating, not only
+must the Spreadsheet in question be visible to the web, but it must also have
+been explicitly published using "File > Publish to the web" menu option in the google spreadsheets GUI.
 
-Generally, you'll find alot of public spreadsheets may not have had this 
-treatment, so your best bet is to just authenticate a Google account and 
+Generally, you'll find a lot of public spreadsheets may not have had this
+treatment, so your best bet is to just authenticate a Google account and
 access the API in that manner.
 
-This library supports authenticated calls, when it is provided an authentication 
-key from Google ClientLogin. The actualy authentication is not handled by this 
-library. I would recommend the [googleclientlogin](https://github.com/Ajnasz/GoogleClientLogin)
+This library uses [googleclientlogin](https://github.com/Ajnasz/GoogleClientLogin)
+internally to provide basic authentication. Optionally you can pass in an auth token
+that you have created already (using googleclientlogin or something else).
 
-### Authentication example (using googleclientlogin):
-	var GoogleClientLogin = require("googleclientlogin").GoogleClientLogin;
-	var GoogleSpreadsheets = require("google-spreadsheets");
 
-	var googleAuth = new GoogleClientLogin({
-	  email: '<email>',
-	  password: '<password>',
-	  service: 'spreadsheets',
-	  accountType: GoogleClientLogin.accountTypes.google
-	});
-	
-	googleAuth.on(GoogleClientLogin.events.login, function(){
-		GoogleSpreadsheets({
-			key: "<key>",
-			auth: googleAuth.getAuthId()
-		}, function(err, spreadsheet) {
-			spreadsheet.worksheets[0].cells({
-				range: "R1C1:R5C6"
-			}, function(err, cells) {
-				// bleh!
-			});
-		});
-	});
+## API
 
-	googleAuth.login();
+### `GoogleSpreadsheet`
 
-## Known Issues
+The main class that represents an entire spreadsheet.
 
-Using NodeJS 0.8.4 - 0.8.22 has a known issue with SSL, YMMV. (https://github.com/joyent/node/issues/4771)
 
-## Further possibilities for this library
- * Edit functionality
- * Sorting/filtering on row listing
- * Filtering on cell listing.
+#### `new GoogleSpreadsheet(sheet_id, [auth], [options])`
+
+Create a new google spreadsheet object.
+
+- `sheet_id` -- the ID of the spreadsheet (from its URL)
+- `auth` - (optional) an existing auth token
+- `options` - (optional)
+  - `visibility` - defaults to `public` if anonymous
+  - `projection` - defaults to `values` if anonymous
+
+
+
+#### `GoogleSpreadsheet.setAuth(username, password, callback)`
+
+Creates an auth token using a username and password. It will be used for all future requests. Internally uses [googleclientlogin](https://github.com/Ajnasz/GoogleClientLogin). Remember NEVER to save your google credentials in version control!
+
+
+
+#### `GoogleSpreadsheet.setAuthToken(id)`
+
+Use an already created auth token for all future requets.
+
+
+
+#### `GoogleSpreadsheet.getInfo(callback)`
+
+Get information about the spreadsheet. Calls callback passing an object that contains:
+
+- `title` - the title of the document
+- `updated` - last updated timestamp
+- `author` - auth info in an object
+  - `name` - author name
+  - `email` - author email
+- `worksheets` - an array of `SpreadsheetWorksheet` objects (see below)
+
+
+
+#### `GoogleSpreadsheet.getRows(worksheet_id, options, callback)`
+
+Get an array of row objects from the sheet.
+
+- `worksheet_id` - the index of the sheet to read from (index starts at 1)
+- `options` (optional)
+  - `start-index` - start reading from row #
+  - `max-results` - max # of rows to read at once
+  - `orderby` - column key to order by
+  - `reverse` - reverse results
+  - `query` - send a structured query for rows ([more info](https://developers.google.com/google-apps/spreadsheets/#sending_a_structured_query_for_rows))
+- `callback(err, rows)` - will be called with an array of row objects (see below)
+
+
+
+#### `GoogleSpreadsheet.addRow(worksheet_id, new_row, callback)`
+
+Add a single row to the sheet.
+
+- `worksheet_id` - the index of the sheet to add to (index starts at 1)
+- `new_row` - key-value object to add - keys must match the header row on your sheet
+- `callback(err)` - callback called after row is added
+
+
+
+#### `GoogleSpreadsheet.getCells(options, callback)`
+
+Get an array of cell objects.
+
+- `options` (optional)
+  - `min-row` - row range min (uses #s visible on the left)
+  - `max-row` - row range max
+  - `min-col` - column range min (uses numbers, not letters!)
+  - `max-col` - column range max
+  - `return-empty` - include empty cells (boolean)
+
+
+----------------------------------
+
+### `SpreadsheetWorksheet`
+
+Represents a single "sheet" from the spreadsheet. These are the different tabs/pages visible at the bottom of the Google Sheets interface.
+
+This is a really just a wrapper to call the same functions on the spreadsheet without needing to include the worksheet id.
+
+__Properties:__
+- `id` - the ID of the sheet
+- `title` - the title (visible on the tabs in google's interface)
+- `rowCount` - number of rows
+- `colCount` - number of columns
+
+### `SpreadsheetWorksheet.getRows(options, callback)`
+See above.
+
+### `SpreadsheetWorksheet.getCells(options, callback)`
+See above.
+
+### `SpreadsheetWorksheet.addRow(new_row, callback)`
+See above.
+
+----------------------------------
+
+### `SpreadsheetRow`
+Represents a single row from a sheet.
+
+You can treat the row as a normal javascript object. Object keys will be from the header row of your sheet, however the google API mangles the names a bit to make them simpler. It's easiest if you just use all lowercase keys to begin with.
+
+#### `SpreadsheetRow.save( callback )`
+Saves any changes made to the row's values.
+
+#### `SpreadsheetRow.del( callback )`
+Deletes the row from the sheet.
+
+----------------------------------
+
+### `SpreadsheetCell`
+Represents a single cell from the sheet.
+
+#### `SpreadsheetCell.setValue(val, callback)`
+Set the value of the cell and save it.
+
+#### `SpreadsheetCell.del(callback)`
+Clear the cell -- internally just calls `.setValue('', callback)`
+
+
+----------------------------------
+
+## Further possibilities & to-do
+
+- batch requests for cell based updates
+- modifying worksheet/spreadsheet properties
+- getting list of available spreadsheets for an authenticated user
 
 ## Links
- * <http://code.google.com/apis/spreadsheets/>
- * <https://github.com/Ajnasz/GoogleClientLogin>
+
+- <https://developers.google.com/google-apps/spreadsheets/>
+- <https://github.com/Ajnasz/GoogleClientLogin>
+
+
+## Thanks
+This is a fairly major rewrite of code by [samcday](https://github.com/samcday). original version [here](https://github.com/samcday/node-google-spreadsheets)
+Also big thanks fo GoogleClientLogin for dealing with authentication.
+
 
 ## License
-
 node-google-spreadsheets is free and unencumbered public domain software. For more information, see the accompanying UNLICENSE file.
-
-[badge-travis-img]: https://img.shields.io/travis/samcday/node-google-spreadsheets.svg?style=flat-square
-[badge-travis-url]: https://travis-ci.org/samcday/node-google-spreadsheets
-[badge-david-img]: https://img.shields.io/david/samcday/node-google-spreadsheets.svg?style=flat-square
-[badge-david-url]: https://david-dm.org/samcday/node-google-spreadsheets
-[badge-npm-img]: https://nodei.co/npm/google-spreadsheets.png?downloads=true&downloadRank=true&stars=true
-[badge-npm-url]: https://www.npmjs.org/package/google-spreadsheets
-[badge-climate-img]: https://img.shields.io/codeclimate/github/samcday/node-google-spreadsheets.svg?style=flat-square
-[badge-climate-url]: https://codeclimate.com/github/samcday/node-google-spreadsheets
-[badge-coverage-img]: https://img.shields.io/codeclimate/coverage/github/samcday/node-google-spreadsheets.svg?style=flat-square
-[badge-coverage-url]: https://codeclimate.com/github/samcday/node-google-spreadsheets
