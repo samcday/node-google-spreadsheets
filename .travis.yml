@@ -1,0 +1,16 @@
+language: node_js
+
+matrix:
+  include:
+    - node_js: '0.10'
+    - node_js: '0.11'
+      env: NO_COVERAGE=1
+
+addons:
+  code_climate:
+    repo_token:
+      secure: "APjRtr3gqPWFCjrq3qkaZ54AvscHGp0y4CitTKioNu5U9tywn0CBjjdz/5Nirptzci1y3+6mFFt6SfKXnitpgcRm6TBSU8fa3aCptgABBlHON6qARwSCggSDf4rc+12/ImGxNI/dy5DXbKcRfcdRj170Y8HxhLAH7R43KrOi1Fc="
+
+after_success:
+  - npm install -g codeclimate-test-reporter
+  - cat coverage/lcov.info | codeclimate
