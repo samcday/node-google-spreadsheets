@@ -14,30 +14,30 @@ A simple Node.js library to read data from a Google Spreadsheet.
 ## Quick Example
 
 ```js
-	var GoogleSpreadsheets = require("google-spreadsheets");
+var GoogleSpreadsheets = require("google-spreadsheets");
 
-	// OPTIONAL: if you want to perform authenticated requests.
-	// You must install this dependency yourself if you need it.
-	var google = require("googleapis");
+// OPTIONAL: if you want to perform authenticated requests.
+// You must install this dependency yourself if you need it.
+var google = require("googleapis");
 
-	var oauth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
-	// Assuming you already obtained an OAuth2 token that has access to the correct scopes somehow...
-	oauth2Client.setCredentials({
-		access_token: ACCESS_TOKEN,
-		refresh_token: REFRESH_TOKEN
+var oauth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
+// Assuming you already obtained an OAuth2 token that has access to the correct scopes somehow...
+oauth2Client.setCredentials({
+	access_token: ACCESS_TOKEN,
+	refresh_token: REFRESH_TOKEN
+});
+
+GoogleSpreadsheets({
+	key: "<spreadsheet key>",
+	auth: oauth2Client
+}, function(err, spreadsheet) {
+	spreadsheet.worksheets[0].cells({
+		range: "R1C1:R5C5"
+	}, function(err, cells) {
+		// Cells will contain a 2 dimensional array with all cell data in the
+		// range requested.
 	});
-
-	GoogleSpreadsheets({
-		key: "<spreadsheet key>",
-		auth: oauth2Client
-	}, function(err, spreadsheet) {
-		spreadsheet.worksheets[0].cells({
-			range: "R1C1:R5C5"
-		}, function(err, cells) {
-			// Cells will contain a 2 dimensional array with all cell data in the
-			// range requested.
-		});
-	});
+});
 ```
 
 ## Authentication
