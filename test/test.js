@@ -66,4 +66,12 @@ describe("google-spreadsheets", function() {
 			done();
 		});
 	});
+	it("fails gracefully on unpublished spreadsheets", function(done) {
+		GoogleSpreadsheets({
+			key: "1Y9_ldGHQt6SWXsu18BlAWQKYu_axFfowlqhJ97SxEHQ"
+		}, function(err) {
+			err.message.should.equal("Cannot read property \'title\' of undefined");
+			done();
+		});
+	});
 });
