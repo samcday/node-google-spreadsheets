@@ -18,11 +18,14 @@
     "semver": "^4.3.6"
   },
   "devDependencies": {
+    "browserify": "*",
     "istanbul": "~0.3.2",
     "mocha": "^2.1.0",
-    "should": "^5.0.1"
+    "should": "^5.0.1",
+    "uglifyjs": "*"
   },
   "scripts": {
+    "build": "browserify --standalone Spreadsheets lib/spreadsheets.js -o lib/spreadsheets.browser.js && uglifyjs lib/spreadsheets.browser.js -o lib/spreadsheets.browser.min.js",
     "test": "[ -n \"$NO_COVERAGE\" ] && mocha || istanbul cover _mocha"
   },
   "jshintConfig": {
