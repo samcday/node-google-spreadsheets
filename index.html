@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Node-google-spreadsheets by samcday</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Node-google-spreadsheets</h1>
+      <h2 class="project-tagline">Google Spreadsheet Data API for node.js &amp; the browser</h2>
+      <a href="https://github.com/samcday/node-google-spreadsheets" class="btn">View on GitHub</a>
+      <a href="https://github.com/samcday/node-google-spreadsheets/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/samcday/node-google-spreadsheets/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <p><a href="https://travis-ci.org/samcday/node-google-spreadsheets"><img src="https://img.shields.io/travis/samcday/node-google-spreadsheets.svg?style=flat-square" alt="Build Status"></a>
+<a href="https://david-dm.org/samcday/node-google-spreadsheets"><img src="https://img.shields.io/david/samcday/node-google-spreadsheets.svg?style=flat-square" alt="Dependency Information"></a>
+<a href="https://codeclimate.com/github/samcday/node-google-spreadsheets"><img src="https://img.shields.io/codeclimate/github/samcday/node-google-spreadsheets.svg?style=flat-square" alt="Code Climate"></a>
+<a href="https://codeclimate.com/github/samcday/node-google-spreadsheets"><img src="https://img.shields.io/codeclimate/coverage/github/samcday/node-google-spreadsheets.svg?style=flat-square" alt="Test Coverage"></a></p>
+
+<p>A simple Javascript library to read data from a Google Spreadsheet.</p>
+
+<h2>
+<a id="quick-example" class="anchor" href="#quick-example" aria-hidden="true"><span class="octicon octicon-link"></span></a>Quick Example</h2>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> GoogleSpreadsheets <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">"</span>google-spreadsheets<span class="pl-pds">"</span></span>);
+
+<span class="pl-c">// OPTIONAL: if you want to perform authenticated requests.</span>
+<span class="pl-c">// You must install this dependency yourself if you need it.</span>
+<span class="pl-k">var</span> google <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">"</span>googleapis<span class="pl-pds">"</span></span>);
+
+<span class="pl-k">var</span> oauth2Client <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">google.auth</span>.OAuth2(<span class="pl-c1">CLIENT_ID</span>, <span class="pl-c1">CLIENT_SECRET</span>, <span class="pl-c1">REDIRECT_URL</span>);
+<span class="pl-c">// Assuming you already obtained an OAuth2 token that has access to the correct scopes somehow...</span>
+oauth2Client.setCredentials({
+    access_token<span class="pl-k">:</span> <span class="pl-c1">ACCESS_TOKEN</span>,
+    refresh_token<span class="pl-k">:</span> <span class="pl-c1">REFRESH_TOKEN</span>
+});
+
+GoogleSpreadsheets({
+    key<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>&lt;spreadsheet key&gt;<span class="pl-pds">"</span></span>,
+    auth<span class="pl-k">:</span> oauth2Client
+}, <span class="pl-k">function</span>(<span class="pl-smi">err</span>, <span class="pl-smi">spreadsheet</span>) {
+    spreadsheet.worksheets[<span class="pl-c1">0</span>].<span class="pl-c1">cells</span>({
+        range<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>R1C1:R5C5<span class="pl-pds">"</span></span>
+    }, <span class="pl-k">function</span>(<span class="pl-smi">err</span>, <span class="pl-smi">cells</span>) {
+        <span class="pl-c">// Cells will contain a 2 dimensional array with all cell data in the</span>
+        <span class="pl-c">// range requested.</span>
+    });
+});</pre></div>
+
+<h3>
+<a id="in-browser" class="anchor" href="#in-browser" aria-hidden="true"><span class="octicon octicon-link"></span></a>In browser</h3>
+
+<p>Build browser bundle with <code>npm run build</code>. Then include
+<code>lib/spreadsheets.browser.min.js</code> in your HTML:</p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>http://url.to/spreadsheets.browser.min.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</pre></div>
+
+<p>Usage is same as above, module is available at <code>window.Spreadsheets</code>:</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-c1">window</span>.Spreadsheets(options, callback);</pre></div>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/samcday/node-google-spreadsheets">Node-google-spreadsheets</a> is maintained by <a href="https://github.com/samcday">samcday</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
