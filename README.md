@@ -40,6 +40,21 @@ GoogleSpreadsheets({
 });
 ```
 
+### In browser
+
+Build browser bundle with `npm run build`. Then include
+`lib/spreadsheets.browser.min.js` in your HTML:
+
+```html
+<script src="http://url.to/spreadsheets.browser.min.js"></script>
+```
+
+Usage is same as above, module is available at `window.Spreadsheets`:
+
+```js
+window.Spreadsheets(options, callback);
+```
+
 ## Authentication
 
 By default, `google-spreadsheets` will attempt requests for a spreadsheet as an unauthenticated (anonymous) user. There are some caveats to this, which you should read about in the [Anonymous Requests](#Anonymous Requests) section below.
