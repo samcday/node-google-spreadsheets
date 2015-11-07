@@ -71,7 +71,7 @@ describe("google-spreadsheets", function() {
 		GoogleSpreadsheets({
 			key: "1Y9_ldGHQt6SWXsu18BlAWQKYu_axFfowlqhJ97SxEHQ"
 		}, function(err) {
-			err.message.should.equal("Cannot read property \'title\' of undefined");
+			err.message.should.equal("No access to that spreadsheet, check your auth.");
 			done();
 		});
 	});
