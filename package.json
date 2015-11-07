@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "browserify": "^12.0.1",
+    "googleapis": "^2.1.6",
     "istanbul": "^0.4.0",
     "mocha": "^2.3.3",
     "should": "^7.1.1",

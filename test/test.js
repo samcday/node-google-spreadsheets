@@ -2,6 +2,7 @@
 
 var assert = require("assert");
 var GoogleSpreadsheets = require("../lib/spreadsheets");
+var google = require("googleapis");
 require("should");
 
 describe("google-spreadsheets", function() {
@@ -74,4 +75,21 @@ describe("google-spreadsheets", function() {
 			done();
 		});
 	});
+	if (process.env.PRIVATE_SPREADSHEET_KEY) {
+		it("uses googleapis@2 auth correctly", function(done) {
+			var auth = new google.auth.OAuth2(process.env.GOOGLE_CLIENT_ID, process.env.GOOGLE_CLIENT_SECRET);
+			auth.setCredentials({
+				refresh_token: process.env.GOOGLE_REFRESH_TOKEN
+			});
+
+			GoogleSpreadsheets({
+				key: process.env.PRIVATE_SPREADSHEET_KEY,
+				auth: auth
+			}, function(err, spreadsheet) {
+				if(err) return done(err);
+				spreadsheet.title.should.equal("Private Spreadsheet");
+				done();
+			});
+		});
+	}
 });
