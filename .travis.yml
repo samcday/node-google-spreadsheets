@@ -3,8 +3,10 @@ language: node_js
 matrix:
   include:
     - node_js: '0.10'
-    - node_js: '0.11'
-      env: NO_COVERAGE=1
+    - node_js: '0.12'
+    - node_js: '4.2'
+    - node_js: '5.0'
+      env: COVERAGE=1
 
 addons:
   code_climate:
