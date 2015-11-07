@@ -10,8 +10,11 @@ addons:
   code_climate:
     repo_token:
       secure: APjRtr3gqPWFCjrq3qkaZ54AvscHGp0y4CitTKioNu5U9tywn0CBjjdz/5Nirptzci1y3+6mFFt6SfKXnitpgcRm6TBSU8fa3aCptgABBlHON6qARwSCggSDf4rc+12/ImGxNI/dy5DXbKcRfcdRj170Y8HxhLAH7R43KrOi1Fc=
-after_success:
-- codeclimate-test-reporter < coverage/lcov.info
+after_success: |
+  if [ -n "$COVERAGE" ]; then
+    npm install -g codeclimate-test-reporter
+    codeclimate-test-reporter < coverage/lcov.info
+  fi
 env:
   global:
   - secure: U+zlwHh3FlfMVfecMmZPvz206hnzsa6zx8u2HKixoziqh7EZ41xEUS5047KFqMA1W/QYA/b8nIVClvasC1e8uoBKkzoCWnGoSfjF/vB1/BuCDomSVFpFip6aMLcb1CHv53zPyg2LkZnuhYoVlyYyfH7X3/GCSWqmnDQfUvaTSMg=
