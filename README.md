@@ -4,6 +4,7 @@
 [![Dependency Information][badge-david-img]][badge-david-url]
 [![Code Climate][badge-climate-img]][badge-climate-url]
 [![Test Coverage][badge-coverage-img]][badge-coverage-url]
+[![npm][badge-npm-img]][badge-npm-url]
 
 A simple Node.js library to read data from a Google Spreadsheet.
 
@@ -147,3 +148,5 @@ node-google-spreadsheets is free and unencumbered public domain software. For mo
 [badge-climate-url]: https://codeclimate.com/github/samcday/node-google-spreadsheets
 [badge-coverage-img]: https://img.shields.io/codeclimate/coverage/github/samcday/node-google-spreadsheets.svg?style=flat-square
 [badge-coverage-url]: https://codeclimate.com/github/samcday/node-google-spreadsheets
+[badge-npm-img]: https://img.shields.io/npm/dm/google-spreadsheets.svg?style=flat-square
+[badge-npm-url]: https://www.npmjs.org/package/google-spreadsheets
