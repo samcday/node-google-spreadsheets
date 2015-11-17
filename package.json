@@ -27,7 +27,7 @@
   },
   "scripts": {
     "build": "browserify --standalone Spreadsheets lib/spreadsheets.js -o lib/spreadsheets.browser.js && uglifyjs lib/spreadsheets.browser.js -o lib/spreadsheets.browser.min.js",
-    "test": "[ -n \"$COVERAGE\" ] && istanbul cover _mocha || mocha"
+    "test": "istanbul test _mocha"
   },
   "jshintConfig": {
     "node": true,

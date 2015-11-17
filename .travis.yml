@@ -9,13 +9,13 @@ matrix:
   - node_js: '0.12'
   - node_js: '4.2'
   - node_js: '5.0'
-    env: COVERAGE=1
+    env: npm_config_coverage=1
 addons:
   code_climate:
     repo_token:
       secure: APjRtr3gqPWFCjrq3qkaZ54AvscHGp0y4CitTKioNu5U9tywn0CBjjdz/5Nirptzci1y3+6mFFt6SfKXnitpgcRm6TBSU8fa3aCptgABBlHON6qARwSCggSDf4rc+12/ImGxNI/dy5DXbKcRfcdRj170Y8HxhLAH7R43KrOi1Fc=
 after_success: |
-  if [ -n "$COVERAGE" ]; then
+  if [ -n "$npm_config_coverage" ]; then
     npm install -g codeclimate-test-reporter
     codeclimate-test-reporter < coverage/lcov.info
   fi
