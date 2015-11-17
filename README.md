@@ -6,20 +6,20 @@
 [![Test Coverage][badge-coverage-img]][badge-coverage-url]
 [![npm][badge-npm-img]][badge-npm-url]
 
-A simple Node.js library to read data from a Google Spreadsheet.
+A simple node.js library to read data from a Google Spreadsheet.
 
-## Installation
+## Quickstart
 
-[![NPM Info][badge-npm-img]][badge-npm-url]
-
-## Quick Example
+```
+npm install google-spreadsheets --save
+```
 
 ```js
-var GoogleSpreadsheets = require("google-spreadsheets");
+var GoogleSpreadsheets = require('google-spreadsheets');
 
 // OPTIONAL: if you want to perform authenticated requests.
 // You must install this dependency yourself if you need it.
-var google = require("googleapis");
+var google = require('googleapis');
 
 var oauth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
 // Assuming you already obtained an OAuth2 token that has access to the correct scopes somehow...
@@ -29,11 +29,11 @@ oauth2Client.setCredentials({
 });
 
 GoogleSpreadsheets({
-	key: "<spreadsheet key>",
+	key: '<spreadsheet key>',
 	auth: oauth2Client
 }, function(err, spreadsheet) {
 	spreadsheet.worksheets[0].cells({
-		range: "R1C1:R5C5"
+		range: 'R1C1:R5C5'
 	}, function(err, cells) {
 		// Cells will contain a 2 dimensional array with all cell data in the
 		// range requested.
@@ -47,7 +47,7 @@ Build browser bundle with `npm run build`. Then include
 `lib/spreadsheets.browser.min.js` in your HTML:
 
 ```html
-<script src="http://url.to/spreadsheets.browser.min.js"></script>
+<script src='http://url.to/spreadsheets.browser.min.js'></script>
 ```
 
 Usage is same as above, module is available at `window.Spreadsheets`:
