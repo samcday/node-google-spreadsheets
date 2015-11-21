@@ -2,7 +2,12 @@
 
 var assert = require("assert");
 var GoogleSpreadsheets = require("../lib/spreadsheets");
-var google = require("googleapis");
+try {
+  // browserify fails requiring googleapis
+  var google = require("googleapis");
+} catch(e) {
+  console.log("Not testing Google API.")
+}
 require("should");
 
 describe("google-spreadsheets", function() {
