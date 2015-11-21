@@ -22,11 +22,13 @@
     "googleapis": "^2.1.6",
     "istanbul": "^0.4.0",
     "mocha": "^2.3.3",
+    "mochify": "^2.14.2",
     "should": "^7.1.1",
     "uglifyjs": "*"
   },
   "scripts": {
     "build": "browserify --standalone Spreadsheets lib/spreadsheets.js -o lib/spreadsheets.browser.js && uglifyjs lib/spreadsheets.browser.js -o lib/spreadsheets.browser.min.js",
+    "browser-test": "mochify --ignore-ssl-errors",
     "test": "istanbul test _mocha"
   },
   "jshintConfig": {
