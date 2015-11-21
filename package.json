@@ -13,11 +13,16 @@
   "engines": {
     "node": ">= 0.10.0"
   },
+  "browser": {
+    "request": "browser-request"
+  },
   "dependencies": {
     "request": "^2.65.0",
-    "semver": "^5.0.3"
+    "semver": "^5.0.3",
+    "statuses": "^1.2.1"
   },
   "devDependencies": {
+    "browser-request": "^0.3.3",
     "browserify": "^12.0.1",
     "googleapis": "^2.1.6",
     "istanbul": "^0.4.0",
