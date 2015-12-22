@@ -9,6 +9,9 @@ matrix:
   - node_js: '0.12'
   - node_js: '4.2'
   - node_js: '5.0'
+  - node_js: '5.1'
+  - node_js: '5.2'
+  - node_js: '5.3'
     env: npm_config_coverage=1
 addons:
   code_climate:

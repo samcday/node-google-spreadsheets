@@ -33,7 +33,7 @@
   },
   "scripts": {
     "build": "browserify --standalone Spreadsheets lib/spreadsheets.js -o lib/spreadsheets.browser.js && uglifyjs lib/spreadsheets.browser.js -o lib/spreadsheets.browser.min.js",
-    "browser-test": "mochify --ignore-ssl-errors",
+    "browser-test": "mochify -R spec --ignore-ssl-errors",
     "test": "istanbul test _mocha"
   },
   "jshintConfig": {
