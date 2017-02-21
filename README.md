@@ -119,7 +119,7 @@ As mentioned earlier, `google-spreadsheets` defaults to issuing anonymous reques
 
 Furthermore, the Google Spreadsheets Data API reference and developers guide is a little ambiguous about how you access a "published" public Spreadsheet.
 
-If you wish to work with a Google Spreadsheet without authenticating,  the Spreadsheet in question must be published using the "Publish to the web..." feature in the File menu in the Google Spreadsheets GUI. Use the setting "Entire Document" to share all tabs, or the name of an individual Sheet to publish only that Sheet. You can publish multiple Sheets one at a time. If you publish only some of the Sheets in your Google Spreadsheet the spreadsheet.worksheets array will only count published Sheets. Use the "Web page" setting.
+If you wish to work with a Google Spreadsheet without authenticating, the Spreadsheet in question must be published using the "Publish to the web..." feature in the File menu in the Google Spreadsheets GUI. Use the setting "Entire Document" to share all tabs, or the name of an individual Sheet to publish only that Sheet. You can publish multiple Sheets one at a time. If you publish only some of the Sheets in your Google Spreadsheet the spreadsheet.worksheets array will only count published Sheets. Use the "Web page" setting.
 
 You may discover that a particular public spreadsheet you're trying to anonymously read may not have had this treatment, so your best bet is to issue authenticated requests for the spreadsheet (or contact the owner and ask them to fix their spreadsheet).
 
