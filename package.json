@@ -17,19 +17,19 @@
     "request": "browser-request"
   },
   "dependencies": {
-    "request": "^2.65.0",
+    "request": "^2.81.0",
     "semver": "^5.0.3",
     "statuses": "^1.2.1"
   },
   "devDependencies": {
     "browser-request": "^0.3.3",
-    "browserify": "^12.0.1",
-    "googleapis": "^2.1.6",
+    "browserify": "^14.4.0",
+    "googleapis": "^20.1.0",
     "istanbul": "^0.4.0",
-    "mocha": "^2.3.3",
-    "mochify": "^2.14.2",
-    "should": "^7.1.1",
-    "uglifyjs": "*"
+    "mocha": "^3.4.2",
+    "mochify": "^3.3.0",
+    "should": "^11.2.1",
+    "uglify-js": "^3.0.26"
   },
   "scripts": {
     "build": "browserify --standalone Spreadsheets lib/spreadsheets.js -o lib/spreadsheets.browser.js && uglifyjs lib/spreadsheets.browser.js -o lib/spreadsheets.browser.min.js",
