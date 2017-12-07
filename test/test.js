@@ -23,6 +23,17 @@ describe("google-spreadsheets", function() {
 			done();
 		});
 	});
+  it("can load a Team Drive spreadsheet", function(done) {
+    GoogleSpreadsheets({
+      key: "1sla_yK0U3bVzTEby-rt5_hLFDDxlDfhn59JRRZe_QjA"
+    }, function(err, spreadsheet) {
+      if(err) return done(err);
+      spreadsheet.title.should.equal("Example Team Drive sheet");
+      spreadsheet.author.name.should.equal("Team Drive");
+      spreadsheet.author.email.should.equal("teamdrive@gmail.com");
+      done();
+    });
+  });
 	it("can load spreadsheet cells", function(done) {
 		GoogleSpreadsheets({
 			key: "0ApDvWFF4RPZBdEFucnJya1hxVG9wZzhJQWZUWkpfekE"
