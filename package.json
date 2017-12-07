@@ -1,13 +1,13 @@
 {
-  "author": "Sam <me@samcday.com.au> (http://samcday.com.au/)",
-  "name": "google-spreadsheets",
-  "description": "Google Spreadsheet Data API for Node.js",
+  "author": "Machiko Yasuda",
+  "name": "google-team-drive-spreadsheets",
+  "description": "Google Spreadsheet Data API for Node.js, with Team Drive support - Forked from Node Google Spreadsheets",
   "version": "0.5.1",
   "license": "Unlicense",
-  "homepage": "https://github.com/samcday/node-google-spreadsheets",
+  "homepage": "https://github.com/machikoyasuda/node-google-spreadsheets",
   "repository": {
     "type": "git",
-    "url": "git://github.com/samcday/node-google-spreadsheets.git"
+    "url": "git://github.com/machikoyasuda/node-google-spreadsheets.git"
   },
   "main": "lib/spreadsheets.js",
   "engines": {
