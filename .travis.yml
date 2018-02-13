@@ -17,12 +17,6 @@ after_success: |
     npm install -g codeclimate-test-reporter
     codeclimate-test-reporter < coverage/lcov.info
   fi
-env:
-  global:
-  - secure: U+zlwHh3FlfMVfecMmZPvz206hnzsa6zx8u2HKixoziqh7EZ41xEUS5047KFqMA1W/QYA/b8nIVClvasC1e8uoBKkzoCWnGoSfjF/vB1/BuCDomSVFpFip6aMLcb1CHv53zPyg2LkZnuhYoVlyYyfH7X3/GCSWqmnDQfUvaTSMg=
-  - secure: uw+Wnqj+9UwwAoVOvF51oF+NSJsSEB+GcGf3EGr9hZBtOOGh5XMVgd6SMybbIb9E3sx5WFeTDs6E0BV/+R2OC1XMLpVvS522Un+BFhwqbtrHERr4ncWCqz4Obvyo60KU0r+xOPWI+hIyXs77iNQuBMPsmslQxAD7XmczMJFRBDc=
-  - secure: giTT0UQrQKfshTCFVMpobJoIPjy62v9BrRYC4aUwBVP6kl+0NT5Eat4Vt8kQgINWMUKNCh86f0o4CNBj+HOYQ14CFN9HnE70uipOMQkEZyhnTyu6eVS9NFTdyF0si7mKALuYlajELNiQaFkwrV4P0W6yJ4BLTsLnUnuLcj8nc9U=
-  - secure: Pze2u5tQxErI26d+a6XCEvSojPAN8LM4rglLFq5ILSzlLiXwvBJ/wRVqJ28x6UCEjfVdD+2m+ydB+7JLzWWKLV4gq5q0Wbi3b/0Rx7hp01NjT7vCBSyJfXFExjRpWkGuQychpAebrv9etgtzQRB7tAxiewWqnu32rwc23du870E=
 deploy:
   provider: npm
   email: me@samcday.com.au
