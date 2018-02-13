@@ -5,13 +5,8 @@ cache:
   - node_modules
 matrix:
   include:
-  - node_js: '0.10'
-  - node_js: '0.12'
-  - node_js: '4.2'
-  - node_js: '5.0'
-  - node_js: '5.1'
-  - node_js: '5.2'
-  - node_js: '5.3'
+  - node_js: '8.9'
+  - node_js: '9.5'
     env: npm_config_coverage=1
 addons:
   code_climate:
@@ -36,4 +31,4 @@ deploy:
   on:
     tags: true
     repo: samcday/node-google-spreadsheets
-    node: '5.0'
+    node: '9.5'
