@@ -58,7 +58,7 @@ window.Spreadsheets(options, callback);
 
 ## Authentication
 
-By default, `google-spreadsheets` will attempt requests for a spreadsheet as an unauthenticated (anonymous) user. There are some caveats to this, which you should read about in the [Anonymous Requests](#Anonymous Requests) section below.
+By default, `google-spreadsheets` will attempt requests for a spreadsheet as an unauthenticated (anonymous) user. There are some caveats to this, which you should read about in the [Anonymous Requests](#anonymous-requests) section below.
 
 As shown in the example above, you can depend on Google's official [`googleapis`](https://github.com/google/google-api-nodejs-client) module and provide it to `google-spreadsheets`. This will allow you to easily make OAuth2 or JWT authenticated requests. See the `googleapis` project for more detailed information about configuring authentication.
 
